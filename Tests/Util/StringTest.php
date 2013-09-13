@@ -1,5 +1,5 @@
 <?php
-namespace Tz\BlogBundle\Tests\Util;
+namespace Tz\BlogBundle\Util;
 
 use Tz\BlogBundle\Util\String;
 
