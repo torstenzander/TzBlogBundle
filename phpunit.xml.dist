@@ -17,4 +17,7 @@
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>
+    <php>
+        <server name="KERNEL_DIR" value="/home/travis/build/torstenzander/TzBlogBundle/" />
+    </php>
 </phpunit>
