@@ -18,6 +18,6 @@
         </testsuite>
     </testsuites>
     <php>
-        <server name="KERNEL_DIR" value="/home/travis/build/torstenzander/TzBlogBundle/" />
+        <server name="KERNEL_DIR" value="Tests/Controller/App" />
     </php>
 </phpunit>
