@@ -17,7 +17,7 @@ new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 new JMS\SerializerBundle\JMSSerializerBundle($this),
 new FOS\RestBundle\FOSRestBundle(),
 // My Bundle to test
-new Beberlei\WorkflowBundle\BeberleiWorkflowBundle(),
+new Tz\BlogBundle(),
 );
 
 return $bundles;
