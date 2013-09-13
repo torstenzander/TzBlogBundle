@@ -23,7 +23,7 @@
         "knplabs/knp-paginator-bundle": "dev-master"
     },
     "autoload": {
-        "psr-0": { "Tz\\BlogBundleB": "" }
+        "psr-0": { "Tz\\BlogBundle": "" }
     },
     "minimum-stability": "dev",
     "target-dir": "tzander/BlogBundle"
