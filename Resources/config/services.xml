@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="tz_blog.example.class">Tz\BlogBundle\Example</parameter>
+    </parameters>
+
+    <services>
+        <service id="tzblog.type.entity_hidden" class="Tz\BlogBundle\Form\EntityHiddenType">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <tag name="form.type" alias="entity_hidden" />
+        </service>
+    </services>
+</container>

@@ -1,0 +1,8 @@
+Tz\BlogBundle\Entity\Comment:
+    properties:
+        name:
+            - NotBlank: ~
+        text:
+            - NotBlank: ~
+        email:
+            - NotBlank: ~

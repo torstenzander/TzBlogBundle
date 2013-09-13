@@ -1,0 +1,38 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    <h1>{{ postEntity.title }}</h1>
+    <p class="muted">{{ postEntity.createdAt|date('d. M. Y') }} </p>
+    <p>{{ postEntity.description }}</p>
+
+    <strong>Tags:</strong>
+
+    <p>  {% for tag in postEntity.getTags %}
+               <a href="{{ path('posts_by_tag', { 'slug': tag.slug }) }}">{{ tag.text }}</a>
+            {% endfor %}</p>
+    <ul>
+        {% for comment in comments %}
+            <li><strong>{{ comment.name }}</strong>
+
+                <p>{{ comment.text }}</p></li>
+        {% endfor %}
+    </ul>
+    <h4> {% trans %}Comments{% endtrans %}</h4>
+    <form action="{{ path('comment_create', { 'id': postEntity.id }) }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit"> {% trans %}save{% endtrans %}</button>
+        </p>
+    </form>
+
+{% if isSuperAdmin %}
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('post_edit', { 'id': postEntity.id }) }}">
+                {% trans %}edit{% endtrans %}
+            </a>
+        </li>
+
+    </ul>
+{% endif %}
+
+{% endblock %}
