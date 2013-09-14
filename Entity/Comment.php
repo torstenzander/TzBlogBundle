@@ -51,6 +51,13 @@ class Comment
     private $website;
 
     /**
+     * @var bool $active
+     *
+     * @ORM\Column(name="isActive", type="boolean")
+     */
+    private $isActive = false;
+
+    /**
      * @var \DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
@@ -139,7 +146,6 @@ class Comment
     }
 
 
-
     /**
      * @param \DateTime $createdAt
      */
@@ -188,15 +194,36 @@ class Comment
         return $this->post;
     }
 
-
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return Comment
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function IsActive()
+    {
+        return $this->isActive;
     }
 }

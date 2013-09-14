@@ -1,27 +1,37 @@
 {% extends '::base.html.twig' %}
 
+
+{% if isSuperAdmin %}
+    {% block admin-navigation %}
+
+        <div class="navbar navbar-static-top">
+            <a href="">Create Post</a>
+            <a href="">List Comments</a>
+        </div>
+    {% endblock %}
+{% endif %}
+
 {% block body %}
+    <h1>Post edit</h1>
 
-<h1>Post edit</h1>
+    <form action="{{ path('post_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        {{ form_widget(edit_form) }}
+        <p>
+            <button type="submit">Edit</button>
+        </p>
+    </form>
 
-<form action="{{ path('post_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
-</form>
-
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('posts') }}">
-            {% trans %}Back to the list{% endtrans %}
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('post_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('posts') }}">
+                {% trans %}Back to the list{% endtrans %}
+            </a>
+        </li>
+        <li>
+            <form action="{{ path('post_delete', { 'id': entity.id }) }}" method="post">
+                {{ form_widget(delete_form) }}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    </ul>
 {% endblock %}

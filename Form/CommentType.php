@@ -18,10 +18,11 @@ class CommentType extends AbstractType
                 'website',
                 'text',
                 array(
-                    'label' => 'Webseite'
+                    'label' => 'Website',
+                    'required' => false
                 )
             )
-            ->add('text', 'textarea', array('label' => 'Nachricht'))
+            ->add('text', 'textarea', array('label' => 'Text'))
             ->add('post', 'entity_hidden', array('class' => 'TzBlogBundle:Post'));
     }
 
@@ -29,7 +30,7 @@ class CommentType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Tz\BlogBundle\Entity\Comment'
+                'validation_groups' => false,
             )
         );
     }
@@ -38,7 +39,5 @@ class CommentType extends AbstractType
     {
         return 'tz_blogbundle_commenttype';
     }
-
-
 
 }

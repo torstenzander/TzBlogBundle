@@ -12,8 +12,7 @@ class TagType extends AbstractType
     {
         $builder
             ->add('text')
-            ->add('slug')
-        ;
+            ->add('slug');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

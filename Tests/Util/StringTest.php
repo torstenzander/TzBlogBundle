@@ -3,7 +3,7 @@ namespace Tz\BlogBundle\Util;
 
 use Tz\BlogBundle\Util\String;
 
-class StringTest  extends \PHPUnit_Framework_TestCase
+class StringTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {

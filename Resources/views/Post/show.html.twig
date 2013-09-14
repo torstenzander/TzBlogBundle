@@ -7,8 +7,8 @@
     <strong>Tags:</strong>
 
     <p>  {% for tag in postEntity.getTags %}
-               <a href="{{ path('posts_by_tag', { 'slug': tag.slug }) }}">{{ tag.text }}</a>
-            {% endfor %}</p>
+            <a href="{{ path('posts_by_tag', { 'slug': tag.slug }) }}">{{ tag.text }}</a>
+        {% endfor %}</p>
     <ul>
         {% for comment in comments %}
             <li><strong>{{ comment.name }}</strong>
@@ -23,16 +23,4 @@
             <button type="submit"> {% trans %}save{% endtrans %}</button>
         </p>
     </form>
-
-{% if isSuperAdmin %}
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('post_edit', { 'id': postEntity.id }) }}">
-                {% trans %}edit{% endtrans %}
-            </a>
-        </li>
-
-    </ul>
-{% endif %}
-
 {% endblock %}

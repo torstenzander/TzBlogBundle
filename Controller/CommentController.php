@@ -2,8 +2,8 @@
 
 namespace Tz\BlogBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -54,7 +54,7 @@ class CommentController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -68,11 +68,11 @@ class CommentController extends Controller
     public function newAction()
     {
         $entity = new Comment();
-        $form   = $this->createForm(new CommentType(), $entity);
+        $form = $this->createForm(new CommentType(), $entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
             'location' => 'blog'
         );
     }
@@ -86,7 +86,7 @@ class CommentController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity  = new Comment();
+        $entity = new Comment();
         $form = $this->createForm(new CommentType(), $entity);
         $form->bind($request);
 
@@ -95,12 +95,12 @@ class CommentController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('post_show', array('id' => $entity->getPost()->getId())));
+            return $this->redirect($this->generateUrl('post_show', array('slug' => $entity->getPost()->getSlug())));
         }
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -124,8 +124,8 @@ class CommentController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -144,7 +144,7 @@ class CommentController extends Controller
         $entity = $em->getRepository('TzBlogBundle:Comment')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Comment entitssy.'. $id);
+            throw $this->createNotFoundException('Unable to find Comment entitssy.' . $id);
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -159,8 +159,8 @@ class CommentController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -169,33 +169,39 @@ class CommentController extends Controller
      * Deletes a Comment entity.
      *
      * @Route("/{id}/delete", name="comment_delete")
-     * @Method("POST")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('TzBlogBundle:Comment')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('TzBlogBundle:Comment')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Comment entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Comment entity.');
         }
 
+        $em->remove($entity);
+        $em->flush();
         return $this->redirect($this->generateUrl('comment'));
     }
 
-    private function createDeleteForm($id)
+    /**
+     * Deletes a Comment entity.
+     *
+     * @Route("/{id}/activate", name="comment_activate")
+     * @Method("GET")
+     */
+    public function activateAction(Request $request, $id)
     {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('TzBlogBundle:Comment')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Comment entity.');
+        }
+        $entity->setIsActive(true);
+        $em->persist($entity);
+        $em->flush();
+        return $this->redirect($this->generateUrl('comment'));
     }
 }

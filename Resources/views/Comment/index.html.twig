@@ -2,45 +2,40 @@
 {% block body %}
     <h1>Comment list</h1>
 
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Author</th>
-            <th>Content</th>
-            <th>Createdat</th>
-            <th>Lasttouched</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('comment_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.author }}</td>
-            <td>{{ entity.content }}</td>
-            <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{% if entity.lastTouched %}{{ entity.lastTouched|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('comment_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('comment_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    <table class="table">
 
-<ul>
-    <li>
-        <a href="{{ path('comment_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+        <tbody>
+        {% for entity in entities %}
+            <tr
+                    {% if entity.isActive == true %}
+                        class="success"
+                    {% else %}
+                        class="warning"
+                    {% endif %}
+                    >
+                <td>
+                    <strong>{{ entity.name }}  </strong> posted on {{ entity.createdAt|date('Y-m-d H:i:s') }}<br>
+                    {{ entity.text }}
+                </td>
+                <td>
+                    <ul class="unstyled">
+                        <li>
+                            <i class="icon-remove"></i><a
+                                    href="{{ path('comment_delete', { 'id': entity.id }) }}"> {% trans %}
+                                delete{% endtrans %}</a>
+                        </li>
+                        {% if entity.isActive == false %}
+                            <li>
+                                <i class="icon-ok"></i><a
+                                        href="{{ path('comment_activate', { 'id': entity.id }) }}"> {% trans %}
+                                    activate{% endtrans %}</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}

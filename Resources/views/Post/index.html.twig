@@ -1,20 +1,23 @@
 {% extends '::base.html.twig' %}
+
 {% block body %}
+
     {% for post in pagination %}
-            <h2><a href="{{ path('post_show', { 'slug': post.slug }) }}">{{ post.title }}</a></h2>
-            <p>{{ post.createdAt|date('d. M. Y') }} mit {{ post.getNumberOfComments }} Kommentaren</p>
-            <p>{{ post.description }}</p>
+        <h2><a href="{{ path('post_show', { 'slug': post.slug }) }}">{{ post.title }}</a></h2>
+        <p>{{ post.createdAt|date('d. M. Y') }} mit {{ post.getNumberOfComments }} Kommentaren</p>
+        <p>{{ post.description }}</p>
     {% endfor %}
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>
     {% if isSuperAdmin %}
-    <ul>
-        <li>
-            <a href="{{ path('post_new') }}">
-                {% trans %}Create post{% endtrans %}
-            </a>
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <a href="{{ path('post_new') }}">
+                    {% trans %}Create post{% endtrans %}
+                </a>
+            </li>
+        </ul>
     {% endif %}
 {% endblock %}
+
